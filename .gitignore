@@ -1,5 +1,5 @@
 # Directorios y archivos de compilación
-__pycache__/
+_pycache_/
 *.pyc
 *.pyo
 *.pyd
@@ -15,11 +15,11 @@ env/
 *.log
 *.sqlite3
 
-# Archivos de sistema operativo (macOS, Windows)
+# Archivos de sistema operativo
 .DS_Store
 Thumbs.db
 
-# Archivos de IDE (Opcional, según tu editor)
+# Archivos de IDE
 .vscode/
 .idea/
 
@@ -27,10 +27,3 @@ Thumbs.db
 .pytest_cache/
 build/
 dist/
-
-# Django database
-db.sqlite3
-
-# Python cache
-__pycache__/
-*.pyc
