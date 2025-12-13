@@ -1,20 +1,34 @@
-<h1>Listado de Publicaciones</h1>
+<h1>Listado de publicaciones</h1>
 
 <form method="get">
-    <input type="text" name="categoria" placeholder="Filtrar por categoría">
-    <input type="date" name="fecha">
+    <select name="categoria">
+        <option value="">Todas las categorías</option>
+        {% for cat in categorias %}
+            <option value="{{ cat.id }}" {% if filtro_categoria == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.nombre }}</option>
+        {% endfor %}
+    </select>
+    <input type="date" name="fecha" value="{{ filtro_fecha }}">
     <button type="submit">Filtrar</button>
 </form>
 
 <ul>
-    {% for post in posts %}
+    {% for post in publicaciones %}
         <li>
-            <h2>{{ post.titulo }}</h2>
-            <p>{{ post.contenido }}</p>
-            <p><strong>Categoría:</strong> {{ post.categoria.nombre }}</p>
-            <p><strong>Fecha:</strong> {{ post.fecha_publicacion }}</p>
+            <a href="{% url 'publicaciones:detalle_post' post.pk %}">{{ post.titulo }}</a> - {{ post.fecha_publicacion }} - {{ post.categoria.nombre }}
         </li>
     {% empty %}
-        <p>No hay publicaciones para mostrar</p>
+        <li>No hay publicaciones</li>
     {% endfor %}
 </ul>
+
+<div>
+    {% if publicaciones.has_previous %}
+        <a href="?page={{ publicaciones.previous_page_number }}">Anterior</a>
+    {% endif %}
+
+    <span>Página {{ publicaciones.number }} de {{ publicaciones.paginator.num_pages }}</span>
+
+    {% if publicaciones.has_next %}
+        <a href="?page={{ publicaciones.next_page_number }}">Siguiente</a>
+    {% endif %}
+</div>
